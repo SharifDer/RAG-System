@@ -17,7 +17,7 @@ vectordb = Chroma(
     persist_directory=INDEX_DIR
 )
 
-# def retrieve_top_n(query:str , k:int =3) -> List[Document]:
-#     query_embeddings = embeddings.embed_query(query)
-#     results = vectordb.similarity_search_by_vector(query_embeddings, k=k)
-#     return results
+def retrieve_top_n(query:str , k:int =3) -> List[Document]:
+    query_embeddings = embeddings.embed_query(query)
+    results = vectordb.similarity_search_by_vector(query_embeddings, k=k)
+    return results
