@@ -10,7 +10,11 @@ load_dotenv()
 REPO_ID = "TheBloke/Mistral-7B-Instruct-v0.2-GGUF"
 FILENAME = "mistral-7b-instruct-v0.2.Q4_K_M.gguf"
 CACHE_DIR = "./models"
-FLAT_MODEL_PATH = os.path.join(CACHE_DIR, FILENAME)
+
+# Compose a unique local filename to avoid overwriting
+safe_repo_id = REPO_ID.replace("/", "__")
+DEST_FILENAME = f"{safe_repo_id}__{FILENAME}"
+FLAT_MODEL_PATH = os.path.join(CACHE_DIR, DEST_FILENAME)
 
 # Load HF token
 token = os.getenv("HF_TOKEN")
@@ -30,7 +34,7 @@ else:
         token=token
     )
 
-    # Copy to flat path for simplicity
+    # Copy to flat path with unique name
     shutil.copy2(model_path, FLAT_MODEL_PATH)
     print(f"📁 Copied model to: {FLAT_MODEL_PATH}")
 
