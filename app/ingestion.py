@@ -3,11 +3,13 @@ from langchain_community.document_loaders import PyMuPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
 import chromadb
-
+import shutil
 PDF_DIR = "./data/raw_pdfs"
 INDEX_DIR = "./data/faiss_index"
 COLLECTION_NAME = "support_issues"
 
+if os.path.exists(INDEX_DIR):
+    shutil.rmtree(INDEX_DIR)
 def load_and_split_pdfs(pdf_dir):
     splitter = RecursiveCharacterTextSplitter(separators=["\n\n"] , chunk_size = 5000 , chunk_overlap=50)
     documents = []
