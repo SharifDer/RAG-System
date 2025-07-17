@@ -7,34 +7,29 @@ import shutil
 load_dotenv()
 
 # Model details
-REPO_ID = "TheBloke/Mistral-7B-Instruct-v0.2-GGUF"
-FILENAME = "mistral-7b-instruct-v0.2.Q4_K_M.gguf"
+REPO_ID = "microsoft/Phi-3-mini-4k-instruct-gguf"
+FILENAME = "Phi-3-mini-4k-instruct-q4.gguf"
 CACHE_DIR = "./models"
 
-# Compose a unique local filename to avoid overwriting
+# Compose unique filename
 safe_repo_id = REPO_ID.replace("/", "__")
 DEST_FILENAME = f"{safe_repo_id}__{FILENAME}"
 FLAT_MODEL_PATH = os.path.join(CACHE_DIR, DEST_FILENAME)
 
-# Load HF token
-token = os.getenv("HF_TOKEN")
-if token is None:
-    raise EnvironmentError("❌ Hugging Face token not found in environment.")
+# Ensure directory exists
+os.makedirs(CACHE_DIR, exist_ok=True)
 
-# ✅ Check if model already exists in flat ./models/ directory
+# Download if not already present
 if os.path.exists(FLAT_MODEL_PATH):
     print(f"✅ Model already exists at: {FLAT_MODEL_PATH}")
 else:
-    # Download to HF cache within ./models/
     print("⬇️ Downloading GGUF model from Hugging Face...")
     model_path = hf_hub_download(
         repo_id=REPO_ID,
         filename=FILENAME,
         cache_dir=CACHE_DIR,
-        token=token
+        token=None
     )
-
-    # Copy to flat path with unique name
     shutil.copy2(model_path, FLAT_MODEL_PATH)
     print(f"📁 Copied model to: {FLAT_MODEL_PATH}")
 
