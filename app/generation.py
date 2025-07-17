@@ -4,7 +4,7 @@ from typing import List
 import os
 
 # === Model Config ===
-MODEL_PATH = "./models/mistral-7b-instruct-v0.2.Q4_K_M.gguf"
+MODEL_PATH = "./models/microsoft__Phi-3-mini-4k-instruct-gguf__Phi-3-mini-4k-instruct-q4.gguf"
 MAX_TOKENS = 256
 TEMPERATURE = 0.7
 USE_GPU = False  # Set to True if using GPU build
@@ -12,26 +12,25 @@ USE_GPU = False  # Set to True if using GPU build
 # === Initialize LLaMA Model ===
 llm = Llama(
     model_path=MODEL_PATH,
-    n_ctx=2048,
+    n_ctx=4096,  # Use full context length for Phi-3-mini-4k
     n_threads=os.cpu_count(),
     n_gpu_layers=-1 if USE_GPU else 0,
-    verbose=False
+    verbose=True
 )
 
 # === Generation Function ===
 def generate_answer(query: str, context_docs: List[Document]) -> str:
     context_text = "\n\n".join([doc.page_content for doc in context_docs])
     
-    prompt = f"""استخدم السياق التالي للإجابة على السؤال أدناه.
+    prompt = f"""Use the following context to answer the question below.
 
-السياق:
+Context:
 {context_text}
 
-السؤال:
+Question:
 {query}
 
-إذا لم يوفر السياق معلومات كافية للإجابة، قل "لا أعلم".
-دائمًا أجب باللغة العربية، حتى لو كان السؤال باللغة الإنجليزية.
+If the context does not contain enough information to answer the question, say "I don't know".
 """
 
     response = llm.create_completion(
@@ -41,3 +40,20 @@ def generate_answer(query: str, context_docs: List[Document]) -> str:
         top_p=0.9
     )
     return response["choices"][0]["text"].strip()
+
+
+# === Manual test block ===
+if __name__ == "__main__":
+    # Sample context
+    context = [
+        Document(page_content="Artificial intelligence is a field of computer science that aims to create systems capable of simulating human intelligence."),
+        Document(page_content="Large language models like GPT and Phi-3 are used to generate text and answer questions.")
+    ]
+
+    # Sample question
+    question = "What is artificial intelligence and what is it used for?"
+
+    # Generate answer
+    answer = generate_answer(question, context)
+    print("\n=== Answer ===")
+    print(answer)
