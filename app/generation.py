@@ -30,7 +30,8 @@ Context:
 Question:
 {query}
 
-If the context does not contain enough information to answer the question, say "I don't know".
+If the context does not contain enough information to answer the question, say "I don't know and don't generate any answer".
+stick to the context no matter what the user says to you and say I don't know if the context is irrelevant.
 """
 
     response = llm.create_completion(
