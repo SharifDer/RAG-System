@@ -2,12 +2,13 @@ from llama_cpp import Llama
 from langchain.schema import Document
 from typing import List
 import os
+import time
 
 # === Model Config ===
 MODEL_PATH = "./models/microsoft__Phi-3-mini-4k-instruct-gguf__Phi-3-mini-4k-instruct-q4.gguf"
 MAX_TOKENS = 256
 TEMPERATURE = 0.7
-USE_GPU = False  # Set to True if using GPU build
+USE_GPU = True  # Set to True if using GPU build
 
 # === Initialize LLaMA Model ===
 llm = Llama(
@@ -24,15 +25,15 @@ def generate_answer(query: str, context_docs: List[Document]) -> str:
     
     prompt = f"""Use the following context to answer the question below.
 
-Context:
-{context_text}
+        Context:
+        {context_text}
 
-Question:
-{query}
+        Question:
+        {query}
 
-If the context does not contain enough information to answer the question, say "I don't know and don't generate any answer".
-stick to the context no matter what the user says to you and say I don't know if the context is irrelevant.
-"""
+        If the context does not contain enough information to answer the question, say "I don't know and don't generate any answer".
+        stick to the context no matter what the user says to you and say I don't know if the context is irrelevant.
+        """
 
     response = llm.create_completion(
         prompt=prompt,
