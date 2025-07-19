@@ -4,6 +4,8 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
 import chromadb
 import shutil
+from langchain.text_splitter import TokenTextSplitter
+
 PDF_DIR = "./data/raw_pdfs"
 INDEX_DIR = "./data/faiss_index"
 COLLECTION_NAME = "support_issues"
@@ -11,7 +13,11 @@ COLLECTION_NAME = "support_issues"
 if os.path.exists(INDEX_DIR):
     shutil.rmtree(INDEX_DIR)
 def load_and_split_pdfs(pdf_dir):
-    splitter = RecursiveCharacterTextSplitter(separators=["\n\n", "\n"] , chunk_size = 1000 , chunk_overlap=50)
+    splitter = TokenTextSplitter(
+                                chunk_size=256,
+                                chunk_overlap=64,
+                                encoding_name="cl100k_base"
+                                                             )
     documents = []
     for file in os.listdir(pdf_dir):
         if file.lower().endswith(".pdf"):
