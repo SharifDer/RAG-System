@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from typing import List
 from app.retrieval import retrieve_top_n  # This should return List[Document]
 from app.generation import generate_answer  # Your existing LLaMA-based function
+import time
 
 app = FastAPI()
 
@@ -16,8 +17,10 @@ def query_answer(request: QueryRequest):
     retrieved_docs = retrieve_top_n(request.query, k=request.top_k)
 
     # Generate answer using the model
+    start = time.time()
     answer = generate_answer(request.query, retrieved_docs)
-
+    gen_time = time.time() - start
+    print(f"gen_time: {gen_time:.2f}s ") 
     return {
         "query": request.query,
         "answer": answer,
