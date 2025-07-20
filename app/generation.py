@@ -30,10 +30,8 @@ def generate_answer(query: str, context_docs: List[Document]) -> str:
 
         Question:
         {query}
-
-        If the context does not contain enough information to answer the question, say "I don't know and don't generate any answer".
-        stick to the context no matter what the user says to you and say I don't know if the context is irrelevant.
-        """
+Only extract the answer from the context exactly as it appears. Do not rephrase. Do not explain. Do not repeat the question. Do not add headers, formatting, or commentary. If the context does not contain an answer, reply: "I don't know and don't generate any answer.          
+   """
 
     response = llm.create_completion(
         prompt=prompt,
@@ -43,6 +41,34 @@ def generate_answer(query: str, context_docs: List[Document]) -> str:
     )
     return response["choices"][0]["text"].strip()
 
+def generate_answer_streaming(query: str, context_docs: List[Document]):
+    context_text = "\n\n".join([doc.page_content for doc in context_docs])
+
+    prompt = f"""Use the following context to answer the question below.
+
+Context:
+{context_text}
+
+Question:
+{query}
+
+If the context does not contain enough information to answer the question, say "I don't know and don't generate any answer".
+Stick to the context no matter what the user says to you and say I don't know if the context is irrelevant.
+"""
+
+    # Call with streaming enabled
+    stream = llm.create_completion(
+        prompt=prompt,
+        max_tokens=MAX_TOKENS,
+        temperature=TEMPERATURE,
+        top_p=0.9,
+        stream=True  # << this enables streaming
+    )
+
+    print("\n=== Answer (streamed) ===\n")
+    for chunk in stream:
+        print(chunk["choices"][0]["text"], end="", flush=True)
+        time.sleep(0.01)  # Optional: simulate human-like typing speed
 
 # === Manual test block ===
 if __name__ == "__main__":
@@ -54,8 +80,8 @@ if __name__ == "__main__":
 
     # Sample question
     question = "What is artificial intelligence and what is it used for?"
-
+    generate_answer_streaming(question , context)
     # Generate answer
-    answer = generate_answer(question, context)
-    print("\n=== Answer ===")
-    print(answer)
+    # answer = generate_answer(question, context)
+    # print("\n=== Answer ===")
+    # print(answer)
