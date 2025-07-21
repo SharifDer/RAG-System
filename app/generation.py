@@ -80,7 +80,7 @@ if __name__ == "__main__":
 
     # Sample question
     question = "What is artificial intelligence and what is it used for?"
-    generate_answer_streaming(question , context)
+    # generate_answer_streaming(question , context)
     # Generate answer
     # answer = generate_answer(question, context)
     # print("\n=== Answer ===")
