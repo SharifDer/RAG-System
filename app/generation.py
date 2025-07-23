@@ -51,7 +51,7 @@ def generate_answer_streaming(query: str, context_docs: List[Document]):
 {context_text}
 
 Q: {query}
-A: Answer in a full sentence, rephrasing the question. Do not start with labels. Do not answer with just a number.
+A: Answer in a full sentence, rephrasing the question. Do not start with labels. Do not answer with just a number. Plus Don't go into any detailss.
 """
 
 
