@@ -74,7 +74,7 @@ This is a fully local Retrieval-Augmented Generation (RAG) system that combines:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/local-rag-system.git
+git clone https://github.com/SharifDer/rag-system.git
 cd local-rag-system
 ```
 
