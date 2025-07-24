@@ -75,7 +75,7 @@ This is a fully local Retrieval-Augmented Generation (RAG) system that combines:
 
 ```bash
 git clone https://github.com/SharifDer/rag-system.git
-cd local-rag-system
+cd rag-system
 ```
 
 ### 2. Create a Virtual Environment
