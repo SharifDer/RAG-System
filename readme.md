@@ -11,21 +11,13 @@ This is a fully local Retrieval-Augmented Generation (RAG) system that combines:
 > 🔐 Entirely private and offline — no OpenAI/Anthropic APIs. Your data stays with you.
 
 ---
+## 📽️ Demo Videos
 
-## 📽️ Demo Video (Frontend Interaction)
+### RAG System with Web Frontend
+[![Web Frontend Integration](https://img.youtube.com/vi/_kW-GXYfKFM/0.jpg)](https://youtu.be/_kW-GXYfKFM)
 
-🚧 *Placeholder: Demo video will be embedded here.*
-
-```markdown
-[![Watch the demo](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=VIDEO_ID)
-```
-
----
-
-## 💬 Demo Video (Telegram Bot)
-
-🚧 *Placeholder: Screen recording of the Telegram bot in action.*
-
+### Telegram RAG Bot
+[![Telegram Bot Demo](https://img.youtube.com/vi/KCl1OPdmP88/0.jpg)](https://youtu.be/KCl1OPdmP88)
 ---
 
 ## 🧩 Features
