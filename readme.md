@@ -96,13 +96,13 @@ pip install -r requirements.txt
 ### 4. Ingest Your Documents
 
 ```bash
-python app/ingest.py  # or your custom ingestion script
+python app/ingestion.py  # or your custom ingestion script
 ```
 
 ### 5. Run the Backend API
 
 ```bash
-python run.py  # Or use uvicorn: uvicorn app.main:app --reload
+python main.py  # Or use uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
 ### 6. Start the Telegram Bot (optional)
@@ -144,11 +144,9 @@ local-rag-system/
 ├── app/
 │   ├── retrieval.py            # Embedding search
 │   ├── generation.py           # LLM generation logic
-│   ├── ingest.py               # Ingest docs into ChromaDB
-│   └── main.py                 # FastAPI routes
-├── frontend/                   # Web frontend code (React/Vite)
-├── telegram_bot.py             # Telegram bot entrypoint
-├── run.py                      # Main runner
+│   ├── ingestion.py            # Ingest docs into ChromaDB
+│   └── bot.py                  # FastAPI routes         
+├── main.py                      # Main runner
 ├── requirements.txt
 ├── Dockerfile
 ├── .dockerignore
@@ -163,7 +161,7 @@ local-rag-system/
 
 This repo is **developed using a local Python environment (in WSL)** for simplicity. Docker is provided for:
 
-* Other users/recruiters
+* Other users
 * Cross-platform compatibility
 
 No need for the developer to use Docker unless desired.
