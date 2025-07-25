@@ -171,11 +171,6 @@ Model download automation is out-of-scope (due to licenses & size). You can:
 
 Built with ❤️ by \Sharif.
 
-If you're a recruiter or engineer interested in building real-world AI tools, feel free to reach out:
-
-* 📧 Email: [you@example.com](mailto:you@example.com)
-* 💼 LinkedIn: [linkedin.com/in/yourname](https://linkedin.com/in/yourname)
-
 ---
 
 ## ⭐️ Bonus (If You Want to Extend)
