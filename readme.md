@@ -132,7 +132,7 @@ docker run -p 8000:8000 local-rag
 ## 📁 Folder Structure
 
 ```bash
-local-rag-system/
+rag-system/
 ├── app/
 │   ├── retrieval.py            # Embedding search
 │   ├── generation.py           # LLM generation logic
